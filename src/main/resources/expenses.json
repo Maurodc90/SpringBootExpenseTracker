@@ -1,0 +1,857 @@
+[
+  {
+    "id": 1,
+    "expenseType": 1,
+    "date": "2026-09-01",
+    "amount": 1200.0,
+    "category": "Salary",
+    "account": "Bank account",
+    "note": "September Salary"
+  },
+  {
+    "id": 2,
+    "expenseType": 0,
+    "date": "2026-09-02",
+    "amount": 85.5,
+    "category": "Groceries",
+    "account": "Cash",
+    "note": "Weekly groceries with Elçin"
+  },
+  {
+    "id": 3,
+    "expenseType": 0,
+    "date": "2026-09-03",
+    "amount": 60.0,
+    "category": "Utilities",
+    "account": "Credit card",
+    "note": "Electricity bill"
+  },
+  {
+    "id": 4,
+    "expenseType": 1,
+    "date": "2026-09-05",
+    "amount": 650.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Translation project payment"
+  },
+  {
+    "id": 5,
+    "expenseType": 0,
+    "date": "2026-09-06",
+    "amount": 25.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Dolmuş fare"
+  },
+  {
+    "id": 6,
+    "expenseType": 0,
+    "date": "2026-09-07",
+    "amount": 340.0,
+    "category": "Holiday",
+    "account": "Credit card",
+    "note": "Weekend trip to Cappadocia with Elçin"
+  },
+  {
+    "id": 7,
+    "expenseType": 0,
+    "date": "2026-09-08",
+    "amount": 275.0,
+    "category": "Gift",
+    "account": "Cash",
+    "note": "Anniversary gift for Elçin"
+  },
+  {
+    "id": 8,
+    "expenseType": 0,
+    "date": "2026-09-10",
+    "amount": 220.0,
+    "category": "Dining",
+    "account": "Debit card",
+    "note": "Dinner with Elçin"
+  },
+  {
+    "id": 9,
+    "expenseType": 1,
+    "date": "2026-09-12",
+    "amount": 500.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Java tutoring side project"
+  },
+  {
+    "id": 10,
+    "expenseType": 0,
+    "date": "2026-09-14",
+    "amount": 150.0,
+    "category": "Savings",
+    "account": "Bank account",
+    "note": "Setting aside for Elçin's wedding ring"
+  },
+  {
+    "id": 11,
+    "expenseType": 0,
+    "date": "2026-09-15",
+    "amount": 45.0,
+    "category": "Entertainment",
+    "account": "Credit card",
+    "note": "Movie night subscription"
+  },
+  {
+    "id": 12,
+    "expenseType": 0,
+    "date": "2026-09-16",
+    "amount": 12.5,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Bus fare"
+  },
+  {
+    "id": 13,
+    "expenseType": 0,
+    "date": "2026-09-17",
+    "amount": 85.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Monthly pantry restock"
+  },
+  {
+    "id": 14,
+    "expenseType": 0,
+    "date": "2026-09-18",
+    "amount": 15.0,
+    "category": "Dining",
+    "account": "Cash",
+    "note": "Coffee with friends"
+  },
+  {
+    "id": 15,
+    "expenseType": 1,
+    "date": "2026-09-20",
+    "amount": 300.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Code review for client"
+  },
+  {
+    "id": 16,
+    "expenseType": 0,
+    "date": "2026-09-21",
+    "amount": 55.0,
+    "category": "Utilities",
+    "account": "Credit card",
+    "note": "Water bill"
+  },
+  {
+    "id": 17,
+    "expenseType": 0,
+    "date": "2026-09-22",
+    "amount": 120.0,
+    "category": "Dining",
+    "account": "Debit card",
+    "note": "Sushi night"
+  },
+  {
+    "id": 18,
+    "expenseType": 0,
+    "date": "2026-09-23",
+    "amount": 40.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Taxi to airport"
+  },
+  {
+    "id": 19,
+    "expenseType": 0,
+    "date": "2026-09-24",
+    "amount": 210.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Large grocery haul"
+  },
+  {
+    "id": 20,
+    "expenseType": 1,
+    "date": "2026-09-25",
+    "amount": 150.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Small bug fix"
+  },
+  {
+    "id": 21,
+    "expenseType": 0,
+    "date": "2026-09-26",
+    "amount": 35.0,
+    "category": "Entertainment",
+    "account": "Credit card",
+    "note": "Steam game sale"
+  },
+  {
+    "id": 22,
+    "expenseType": 0,
+    "date": "2026-09-27",
+    "amount": 15.0,
+    "category": "Dining",
+    "account": "Cash",
+    "note": "Street food"
+  },
+  {
+    "id": 23,
+    "expenseType": 0,
+    "date": "2026-09-28",
+    "amount": 95.0,
+    "category": "Utilities",
+    "account": "Credit card",
+    "note": "Internet bill"
+  },
+  {
+    "id": 29,
+    "expenseType": 0,
+    "date": "2026-09-29",
+    "amount": 50.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Fuel for car"
+  },
+  {
+    "id": 30,
+    "expenseType": 1,
+    "date": "2026-09-30",
+    "amount": 450.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Monthly retainer"
+  },
+  {
+    "id": 31,
+    "expenseType": 0,
+    "date": "2026-10-01",
+    "amount": 500.0,
+    "category": "Rent",
+    "account": "Bank account",
+    "note": "Monthly rent"
+  },
+  {
+    "id": 32,
+    "expenseType": 0,
+    "date": "2026-10-02",
+    "amount": 45.0,
+    "category": "Groceries",
+    "account": "Cash",
+    "note": "Milk and eggs"
+  },
+  {
+    "id": 33,
+    "expenseType": 0,
+    "date": "2026-10-03",
+    "amount": 12.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Metro fare"
+  },
+  {
+    "id": 34,
+    "expenseType": 0,
+    "date": "2026-10-04",
+    "amount": 85.0,
+    "category": "Dining",
+    "account": "Debit card",
+    "note": "Lunch with colleagues"
+  },
+  {
+    "id": 35,
+    "expenseType": 1,
+    "date": "2026-10-05",
+    "amount": 200.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Consulting session"
+  },
+  {
+    "id": 36,
+    "expenseType": 0,
+    "date": "2026-10-06",
+    "amount": 30.0,
+    "category": "Entertainment",
+    "account": "Credit card",
+    "note": "Cinema tickets"
+  },
+  {
+    "id": 37,
+    "expenseType": 0,
+    "date": "2026-10-07",
+    "amount": 15.0,
+    "category": "Dining",
+    "account": "Cash",
+    "note": "Ice cream"
+  },
+  {
+    "id": 38,
+    "expenseType": 0,
+    "date": "2026-10-08",
+    "amount": 110.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Weekly shopping"
+  },
+  {
+    "id": 39,
+    "expenseType": 0,
+    "date": "2026-10-09",
+    "amount": 45.0,
+    "category": "Utilities",
+    "account": "Credit card",
+    "note": "Phone bill"
+  },
+  {
+    "id": 40,
+    "expenseType": 1,
+    "date": "2026-10-10",
+    "amount": 75.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Small task"
+  },
+  {
+    "id": 41,
+    "expenseType": 0,
+    "date": "2026-10-11",
+    "amount": 25.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Bus fare"
+  },
+  {
+    "id": 42,
+    "expenseType": 0,
+    "date": "2026-10-12",
+    "amount": 65.0,
+    "category": "Dining",
+    "account": "Debit card",
+    "note": "Pizza night"
+  },
+  {
+    "id": 43,
+    "expenseType": 0,
+    "date": "2026-10-13",
+    "amount": 120.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Pantry restock"
+  },
+  {
+    "id": 44,
+    "expenseType": 0,
+    "date": "2026-10-14",
+    "amount": 55.0,
+    "category": "Entertainment",
+    "account": "Credit card",
+    "note": "Streaming service"
+  },
+  {
+    "id": 45,
+    "expenseType": 1,
+    "date": "2026-10-15",
+    "amount": 400.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Project milestone"
+  },
+  {
+    "id": 46,
+    "expenseType": 0,
+    "date": "2026-10-16",
+    "amount": 30.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Taxi"
+  },
+  {
+    "id": 47,
+    "expenseType": 0,
+    "date": "2026-10-17",
+    "amount": 45.0,
+    "category": "Dining",
+    "account": "Cash",
+    "note": "Breakfast"
+  },
+  {
+    "id": 48,
+    "expenseType": 0,
+    "date": "2026-10-18",
+    "amount": 90.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Weekly shopping"
+  },
+  {
+    "id": 49,
+    "expenseType": 0,
+    "date": "2026-10-19",
+    "amount": 25.0,
+    "category": "Utilities",
+    "account": "Credit card",
+    "note": "Small utility fee"
+  },
+  {
+    "id": 50,
+    "expenseType": 1,
+    "date": "2026-10-20",
+    "amount": 150.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Tutoring"
+  },
+  {
+    "id": 51,
+    "expenseType": 0,
+    "date": "2026-10-21",
+    "amount": 40.0,
+    "category": "Entertainment",
+    "account": "Credit card",
+    "note": "Book purchase"
+  },
+  {
+    "id": 52,
+    "expenseType": 0,
+    "date": "2026-10-22",
+    "amount": 15.0,
+    "category": "Dining",
+    "account": "Cash",
+    "note": "Snack"
+  },
+  {
+    "id": 53,
+    "expenseType": 0,
+    "date": "2026-10-23",
+    "amount": 75.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Weekly shopping"
+  },
+  {
+    "id": 54,
+    "expenseType": 0,
+    "date": "2026-10-24",
+    "amount": 35.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Bus fare"
+  },
+  {
+    "id": 55,
+    "expenseType": 1,
+    "date": "2026-10-25",
+    "amount": 300.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Project payment"
+  },
+  {
+    "id": 56,
+    "expenseType": 0,
+    "date": "2026-10-26",
+    "amount": 50.0,
+    "category": "Dining",
+    "account": "Debit card",
+    "note": "Lunch"
+  },
+  {
+    "id": 57,
+    "expenseType": 0,
+    "date": "2026-10-27",
+    "amount": 12.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Metro"
+  },
+  {
+    "id": 58,
+    "expenseType": 0,
+    "date": "2026-10-28",
+    "amount": 95.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Weekly shopping"
+  },
+  {
+    "id": 59,
+    "expenseType": 0,
+    "date": "2026-10-29",
+    "amount": 45.0,
+    "category": "Utilities",
+    "account": "Credit card",
+    "note": "Phone bill"
+  },
+  {
+    "id": 60,
+    "expenseType": 1,
+    "date": "2026-10-30",
+    "amount": 500.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Bonus"
+  },
+  {
+    "id": 61,
+    "expenseType": 0,
+    "date": "2026-10-31",
+    "amount": 85.0,
+    "category": "Dining",
+    "account": "Debit card",
+    "note": "Dinner"
+  },
+  {
+    "id": 62,
+    "expenseType": 0,
+    "date": "2026-11-01",
+    "amount": 500.0,
+    "category": "Rent",
+    "account": "Bank account",
+    "note": "Monthly rent"
+  },
+  {
+    "id": 63,
+    "expenseType": 0,
+    "date": "2026-11-02",
+    "amount": 45.0,
+    "category": "Groceries",
+    "account": "Cash",
+    "note": "Weekly shopping"
+  },
+  {
+    "id": 64,
+    "expenseType": 0,
+    "date": "2026-11-03",
+    "amount": 25.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Bus fare"
+  },
+  {
+    "id": 65,
+    "expenseType": 1,
+    "date": "2026-11-04",
+    "amount": 150.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Small task"
+  },
+  {
+    "id": 66,
+    "expenseType": 0,
+    "date": "2026-11-05",
+    "amount": 30.0,
+    "category": "Entertainment",
+    "account": "Credit card",
+    "note": "Movie"
+  },
+  {
+    "id": 67,
+    "expenseType": 0,
+    "date": "2026-11-06",
+    "amount": 55.0,
+    "category": "Dining",
+    "account": "Debit card",
+    "note": "Lunch"
+  },
+  {
+    "id": 68,
+    "expenseType": 0,
+    "date": "2026-11-07",
+    "amount": 90.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Weekly shopping"
+  },
+  {
+    "id": 69,
+    "expenseType": 0,
+    "date": "2026-11-08",
+    "amount": 45.0,
+    "category": "Utilities",
+    "account": "Credit card",
+    "note": "Phone bill"
+  },
+  {
+    "id": 70,
+    "expenseType": 1,
+    "date": "2026-11-09",
+    "amount": 400.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Project payment"
+  },
+  {
+    "id": 71,
+    "expenseType": 0,
+    "date": "2026-11-10",
+    "amount": 15.0,
+    "category": "Dining",
+    "account": "Cash",
+    "note": "Coffee"
+  },
+  {
+    "id": 72,
+    "expenseType": 0,
+    "date": "2026-11-11",
+    "amount": 35.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Bus fare"
+  },
+  {
+    "id": 73,
+    "expenseType": 0,
+    "date": "2026-11-12",
+    "amount": 85.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Weekly shopping"
+  },
+  {
+    "id": 74,
+    "expenseType": 0,
+    "date": "2026-11-13",
+    "amount": 50.0,
+    "category": "Entertainment",
+    "account": "Credit card",
+    "note": "Game"
+  },
+  {
+    "id": 75,
+    "expenseType": 1,
+    "date": "2026-11-14",
+    "amount": 250.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Tutoring"
+  },
+  {
+    "id": 76,
+    "expenseType": 0,
+    "date": "2026-11-15",
+    "amount": 40.0,
+    "category": "Dining",
+    "account": "Debit card",
+    "note": "Lunch"
+  },
+  {
+    "id": 77,
+    "expenseType": 0,
+    "date": "2026-11-16",
+    "amount": 15.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Bus fare"
+  },
+  {
+    "id": 77,
+    "expenseType": 0,
+    "date": "2026-11-17",
+    "amount": 95.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Weekly shopping"
+  },
+  {
+    "id": 79,
+    "expenseType": 0,
+    "date": "2026-11-18",
+    "amount": 45.0,
+    "category": "Utilities",
+    "account": "Credit card",
+    "note": "Phone bill"
+  },
+  {
+    "id": 80,
+    "expenseType": 1,
+    "date": "2026-11-19",
+    "amount": 300.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Project payment"
+  },
+  {
+    "id": 81,
+    "expenseType": 0,
+    "date": "2026-11-20",
+    "amount": 30.0,
+    "category": "Entertainment",
+    "account": "Credit card",
+    "note": "Movie"
+  },
+  {
+    "id": 82,
+    "expenseType": 0,
+    "date": "2026-11-21",
+    "amount": 55.0,
+    "category": "Dining",
+    "account": "Debit card",
+    "note": "Dinner"
+  },
+  {
+    "id": 83,
+    "expenseType": 0,
+    "date": "2026-11-22",
+    "amount": 85.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Weekly shopping"
+  },
+  {
+    "id": 84,
+    "expenseType": 0,
+    "date": "2026-11-23",
+    "amount": 45.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Bus fare"
+  },
+  {
+    "id": 85,
+    "expenseType": 1,
+    "date": "2026-11-24",
+    "amount": 150.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Small task"
+  },
+  {
+    "id": 86,
+    "expenseType": 0,
+    "date": "2026-11-25",
+    "amount": 40.0,
+    "category": "Dining",
+    "account": "Cash",
+    "note": "Lunch"
+  },
+  {
+    "id": 87,
+    "expenseType": 0,
+    "date": "2026-11-26",
+    "amount": 95.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Weekly shopping"
+  },
+  {
+    "id": 88,
+    "expenseType": 0,
+    "date": "2026-11-27",
+    "amount": 50.0,
+    "category": "Utilities",
+    "account": "Credit card",
+    "note": "Phone bill"
+  },
+  {
+    "id": 89,
+    "expenseType": 1,
+    "date": "2026-11-28",
+    "amount": 450.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Project payment"
+  },
+  {
+    "id": 90,
+    "expenseType": 0,
+    "date": "2026-11-29",
+    "amount": 35.0,
+    "category": "Entertainment",
+    "account": "Credit card",
+    "note": "Game"
+  },
+  {
+    "id": 91,
+    "expenseType": 0,
+    "date": "2026-11-30",
+    "amount": 55.0,
+    "category": "Dining",
+    "account": "Debit card",
+    "note": "Dinner"
+  },
+  {
+    "id": 92,
+    "expenseType": 0,
+    "date": "2026-12-01",
+    "amount": 500.0,
+    "category": "Rent",
+    "account": "Bank account",
+    "note": "Monthly rent"
+  },
+  {
+    "id": 93,
+    "expenseType": 0,
+    "date": "2026-12-02",
+    "amount": 45.0,
+    "category": "Groceries",
+    "account": "Cash",
+    "note": "Weekly shopping"
+  },
+  {
+    "id": 94,
+    "expenseType": 0,
+    "date": "2026-12-03",
+    "amount": 25.0,
+    "category": "Transportation",
+    "account": "Cash",
+    "note": "Bus fare"
+  },
+  {
+    "id": 95,
+    "expenseType": 1,
+    "date": "2026-12-04",
+    "amount": 300.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Project payment"
+  },
+  {
+    "id": 96,
+    "expenseType": 0,
+    "date": "2026-12-05",
+    "amount": 30.0,
+    "category": "Entertainment",
+    "account": "Credit card",
+    "note": "Movie"
+  },
+  {
+    "id": 97,
+    "expenseType": 0,
+    "date": "2026-12-06",
+    "amount": 55.0,
+    "category": "Dining",
+    "account": "Debit card",
+    "note": "Lunch"
+  },
+  {
+    "id": 98,
+    "expenseType": 0,
+    "date": "2026-12-07",
+    "amount": 90.0,
+    "category": "Groceries",
+    "account": "Debit card",
+    "note": "Weekly shopping"
+  },
+  {
+    "id": 99,
+    "expenseType": 0,
+    "date": "2026-12-08",
+    "amount": 45.0,
+    "category": "Utilities",
+    "account": "Credit card",
+    "note": "Phone bill"
+  },
+  {
+    "id": 100,
+    "expenseType": 1,
+    "date": "2026-12-09",
+    "amount": 400.0,
+    "category": "Freelance",
+    "account": "Bank account",
+    "note": "Project payment"
+  }
+]
