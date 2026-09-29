@@ -18,13 +18,33 @@ repositories {
 }
 
 dependencies {
+	// --- Runtime dependencies ---
+
+	// Web layer: controllers, REST endpoints, MVC setup
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+
+	// Persistence layer: JPA/Hibernate
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Postgres driver, used by the "db" profile
+	implementation 'org.postgresql:postgresql'
+
+	// H2 driver, used by the "json"/in-memory profile for local testing
+	runtimeOnly 'com.h2database:h2'
+
+	// H2 web console, for inspecting the in-memory DB during local runs
+	implementation 'org.springframework.boot:spring-boot-h2console'
+
+	// --- Compile-time tools ---
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// --- Test dependencies ---
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testCompileOnly 'org.projectlombok:lombok'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	testAnnotationProcessor 'org.projectlombok:lombok'
+	// Add if integration tests need a real Postgres connection:
+	// testImplementation 'org.postgresql:postgresql'
 }
 
 tasks.named('test') {

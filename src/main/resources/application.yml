@@ -1,0 +1,21 @@
+server:
+  port: 8080 # port the embedded server listens on
+
+spring:
+  profiles:
+    active: db
+    # "db" persists to Postgres via JPA; "json" (commented below) reads from expenses.json instead
+  #    active: json
+  datasource:
+    url: jdbc:postgresql://ep-steep-grass-b1kkc352-pooler.c-5.eu-central-1.aws.neon.tech/neondb?sslmode=require&channelBinding=require
+    driverClassName: org.postgresql.Driver
+    username: ${DB_USERNAME} # set as an environment variable, not hardcoded
+    password: ${DB_PASSWORD} # set as an environment variable, not hardcoded
+  h2:
+    console:
+      enabled: true # exposes the H2 web console for inspecting the in-memory DB during development
+  jpa:
+    hibernate:
+      ddl-auto: update # update schema to match entities, never wipe data — safe for Postgres
+    show-sql: true # logs generated SQL to the console for debugging
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

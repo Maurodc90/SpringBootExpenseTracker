@@ -2,25 +2,33 @@ package com.maurodelcore.expensetracker.service;
 
 import com.maurodelcore.expensetracker.model.Expense;
 import com.maurodelcore.expensetracker.utils.ExpenseDataLoader;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * In-memory, JSON-backed implementation of {@link ExpenseService}, active only under the "json" profile.
+ * Reads and mutates the shared expense list held by {@link ExpenseDataLoader}.
+ */
 @Service
+@Profile("json")
 public class ExpenseServiceImplementation implements ExpenseService{
 
-    private final ExpenseDataLoader expenseDataLoader;
-
-    public ExpenseServiceImplementation(ExpenseDataLoader expenseDataLoader) {this.expenseDataLoader = expenseDataLoader;}
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Expense> getExpensesByDay(String date) {
-        return ExpenseDataLoader.getExpenses().stream() // take the expenses
-                .filter(expense -> expense.getDate().equals(date))// filter by date for each expenses get date if equals date
-                .toList(); //put the filtered expenses into the list
+        return ExpenseDataLoader.getExpenses().stream()
+                .filter(expense -> expense.getDate().equals(date))
+                .toList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Expense> getExpensesByCategoryAndMonth(String category, String month) {
         return ExpenseDataLoader.getExpenses().stream()
@@ -29,16 +37,22 @@ public class ExpenseServiceImplementation implements ExpenseService{
                 .toList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getAllExpensesCategories() {
         return ExpenseDataLoader
-                .getExpenses() //Get all the expense
-                .stream()//convert to a stream
-                .map(Expense::getCategory) // transform the element in a stream and get all categories
-                .distinct()//remove duplicate
-                .toList(); // take all the stream and it transform back to a list
+                .getExpenses()
+                .stream()
+                .map(Expense::getCategory)
+                .distinct()
+                .toList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Expense> getExpenseById(Long id) {
         return ExpenseDataLoader.getExpenses()
@@ -47,6 +61,9 @@ public class ExpenseServiceImplementation implements ExpenseService{
                 .findFirst();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Expense addExpense(Expense expense) {
         expense.setId(ExpenseDataLoader.getNextId());
@@ -54,22 +71,28 @@ public class ExpenseServiceImplementation implements ExpenseService{
         return expense;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean deleteExpenseById(Long id) {
-        Optional<Expense> expense = getExpenseById(id);
-        if (expense.isPresent()) {
-            ExpenseDataLoader.getExpenses().remove(expense.get());
+        Optional<Expense> expenseToDelete = getExpenseById(id);
+        if (expenseToDelete.isPresent()) {
+            ExpenseDataLoader.getExpenses().remove(expenseToDelete.get());
             return true;
         }
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean updateExpense(Expense updatedExpense) { // the user will query an expense
-        Optional<Expense> existingExpense = getExpenseById(updatedExpense.getId()); // a variable existingExpense will be set using that user query and using the getExpenseById method
-        if (existingExpense.isPresent()) { //if the expense exists
-            ExpenseDataLoader.getExpenses().remove(existingExpense.get()); // the existing expense will be removed from the list
-            ExpenseDataLoader.getExpenses().add(updatedExpense); // the updated expense will be added to the list
+    public boolean updateExpense(Expense updatedExpense) {
+        Optional<Expense> existingExpense = getExpenseById(updatedExpense.getId());
+        if (existingExpense.isPresent()) {
+            ExpenseDataLoader.getExpenses().remove(existingExpense.get());
+            ExpenseDataLoader.getExpenses().add(updatedExpense);
             return true;
         }
         return false;
