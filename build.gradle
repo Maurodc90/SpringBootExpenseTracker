@@ -1,3 +1,4 @@
+// --- Plugins ---
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '4.1.1'
@@ -7,12 +8,14 @@ plugins {
 group = 'com.maurodelcore'
 version = '0.0.1-SNAPSHOT'
 
+// --- Java version ---
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
+// --- Repositories ---
 repositories {
 	mavenCentral()
 }
@@ -28,6 +31,14 @@ dependencies {
 
 	// Postgres driver, used by the "db" profile
 	implementation 'org.postgresql:postgresql'
+
+	// Spring Starter Security for Security config
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// JWT Implementation and runtime for token authentication
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6' // For JSON serialization
 
 	// H2 driver, used by the "json"/in-memory profile for local testing
 	runtimeOnly 'com.h2database:h2'
@@ -47,6 +58,7 @@ dependencies {
 	// testImplementation 'org.postgresql:postgresql'
 }
 
+// --- Test configuration ---
 tasks.named('test') {
 	useJUnitPlatform()
 }
