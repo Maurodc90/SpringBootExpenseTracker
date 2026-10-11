@@ -18,7 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  *
  * <p>Requests are authenticated with a JWT sent in the {@code Authorization} header.
  * No HTTP session is created, so every request must carry its own token. Only the
- * sign-up and login endpoints are public.
+ * sign-up and login endpoints are public. The {@code /admin/**} endpoints require
+ * the ADMIN role; every other endpoint requires the USER role.
  */
 @Configuration
 @EnableWebSecurity
@@ -60,8 +61,8 @@ public class SecurityConfig {
     }
 
     /**
-     * Defines which requests are public, which need a token, and where the JWT
-     * filter runs.
+     * Defines which requests are public, which need a token, which role each
+     * group of endpoints requires, and where the JWT filter runs.
      *
      * @param http the builder Spring provides for the security rules
      * @return the configured security filter chain
@@ -77,8 +78,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Public before the user has a token (the first matching rule wins)
                         .requestMatchers("/signup/**", "/login/**").permitAll()
-                        // Everything else requires a valid token
-                        .anyRequest().authenticated()
+                        // Only users with the ADMIN role can access the admin endpoints
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        // All other endpoints require the USER role, so admins cannot manage expenses
+                        .anyRequest().hasRole("USER")
                 )
                 // Read the token before Spring's own login filter runs
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

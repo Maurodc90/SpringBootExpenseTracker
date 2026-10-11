@@ -1,0 +1,43 @@
+{
+  "signup": [
+    {
+      "method": "POST",
+      "url": "http://localhost:8080/signup",
+      "body": { "fullName": "Mauro", "username": "mauro", "password": "mauro" }
+    },
+    {
+      "method": "POST",
+      "url": "http://localhost:8080/signup",
+      "body": { "fullName": "Elcin", "username": "elcin", "password": "elcin" }
+    }
+  ],
+  "login": [
+    {
+      "method": "POST",
+      "url": "http://localhost:8080/login",
+      "body": { "username": "mauro", "password": "mauro" }
+    },
+    {
+      "method": "POST",
+      "url": "http://localhost:8080/login",
+      "body": { "username": "admin", "password": "admin" }
+    }
+  ],
+  "expenses": [
+    {
+      "method": "POST",
+      "url": "http://localhost:8080/expenses",
+      "body": { "expenseType": 0, "date": "2026-10-05", "amount": 42.50, "category": "Food", "account": "Cash", "note": "Groceries" }
+    },
+    {
+      "method": "POST",
+      "url": "http://localhost:8080/expenses",
+      "body": { "expenseType": 0, "date": "2026-10-08", "amount": 15.00, "category": "Transport", "account": "Card", "note": "Bus pass top-up" }
+    },
+    {
+      "method": "POST",
+      "url": "http://localhost:8080/expenses",
+      "body": { "expenseType": 0, "date": "2026-10-10", "amount": 60.00, "category": "Food", "account": "Card", "note": "Dinner out" }
+    }
+  ]
+}

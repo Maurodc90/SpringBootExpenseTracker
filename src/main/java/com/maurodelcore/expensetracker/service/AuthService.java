@@ -14,7 +14,7 @@ public interface AuthService {
      *
      * @param appUserDTO the full name, username and plain-text password of the new user
      * @return a response with the token and the message "success", or without a token
-     *         and with an error message if the username is already taken
+     * and with an error message if the username is already taken
      */
     AuthResponseDTO registerUser(AppUserDTO appUserDTO);
 
@@ -23,7 +23,7 @@ public interface AuthService {
      *
      * @param authDTO the username and plain-text password
      * @return a response with the token and the message "success", or without a token
-     *         and with an error message if the credentials are invalid
+     * and with an error message if the credentials are invalid
      */
     AuthResponseDTO loginUser(AuthDTO authDTO);
 }

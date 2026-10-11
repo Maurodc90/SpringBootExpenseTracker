@@ -32,7 +32,7 @@ public class AuthController {
      *
      * @param appUserDTO the full name, username and password sent in the request body
      * @return 200 with a response holding the token if the user was created,
-     *         otherwise 400 with the error message (for example, username already taken)
+     * otherwise 400 with the error message (for example, username already taken)
      */
     @PostMapping("/signup")
     public ResponseEntity<AuthResponseDTO> signup(@RequestBody AppUserDTO appUserDTO) {
@@ -49,7 +49,7 @@ public class AuthController {
      *
      * @param authDTO the username and password sent in the request body
      * @return 200 with a response holding the token if the credentials are valid,
-     *         otherwise 400 with the error message
+     * otherwise 400 with the error message
      */
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody AuthDTO authDTO) {

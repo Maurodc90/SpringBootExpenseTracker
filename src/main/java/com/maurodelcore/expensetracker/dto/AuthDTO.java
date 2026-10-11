@@ -9,9 +9,13 @@ import lombok.Data;
 @Data
 public class AuthDTO {
 
-    /** The name the user signed up with. */
+    /**
+     * The name the user signed up with.
+     */
     private String username;
 
-    /** The plain-text password typed by the user. */
+    /**
+     * The plain-text password typed by the user.
+     */
     private String password;
 }

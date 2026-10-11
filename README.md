@@ -4,7 +4,7 @@ A REST API for tracking personal expenses, built with Spring Boot. Currently in 
 
 ## Status: In Progress
 
-Expenses are stored in PostgreSQL (via Neon), and the API is now protected with JWT authentication: users can sign up, log in and call the expense endpoints with a token. Expenses are not yet linked to individual users.
+Expenses are stored in PostgreSQL (via Neon), and the API is protected with JWT authentication. Users can sign up, log in and manage their own expenses with a token. Every expense belongs to the user who created it, and there are two roles: USER and ADMIN.
 
 ## Tech Stack
 
@@ -13,7 +13,6 @@ Expenses are stored in PostgreSQL (via Neon), and the API is now protected with 
 - Spring Security with BCrypt password hashing
 - JWT (JJWT) for stateless authentication
 - PostgreSQL (Neon, cloud-hosted)
-- H2 (in-memory, used for the JSON-backed profile and local experimentation)
 - Hibernate / JPA
 - Lombok
 - Jackson (JSON serialization)
@@ -21,18 +20,20 @@ Expenses are stored in PostgreSQL (via Neon), and the API is now protected with 
 
 ## Architecture
 
-Two interchangeable service implementations, selected via Spring profile:
-- **`db` profile**: persists to PostgreSQL through `ExpenseRepository` (Spring Data JPA)
-- **`json` profile**: reads and writes an in-memory list loaded from `expenses.json`, useful for quick local testing without a database
-
-Standard layered structure: `controller` → `service` → `repository`, with `Expense` and `AppUser` as the JPA entities.
+Standard layered structure: `controller` → `service` → `repository`, with `Expense` and `AppUser` as the JPA entities. An expense belongs to one user (many-to-one), and every service method takes the id of the logged-in user, so a user can only read, change or delete their own expenses.
 
 ### Authentication
 
-- **Sign-up** stores the username and a BCrypt hash of the password; the plain password is never saved.
+- **Sign-up** stores the username and a BCrypt hash of the password; the plain password is never saved. New accounts get the USER role.
 - **Login** checks the credentials through Spring's `AuthenticationManager` and returns a JWT valid for 10 hours.
 - **Every other request** must carry the token in the `Authorization: Bearer <token>` header. `JwtAuthFilter` validates it and identifies the user for that request.
 - Sessions are stateless: the server keeps no session, so each request proves itself with its token.
+
+### Roles
+
+- **USER** adds, edits and deletes their own expenses. Another user's expense is never returned: asking for it gives 404.
+- **ADMIN** can list users through `/admin/users`. Admins cannot use the expense endpoints.
+- A single admin account is created at startup by `DataInitializer`. Every account registered through the API is a USER.
 
 ## Example
 
@@ -50,20 +51,21 @@ An expense might look like:
 
 ## Endpoints
 
-`/signup` and `/login` are public. All other endpoints require a valid token.
+`/signup` and `/login` are public. The expense endpoints need a USER token and work on the logged-in user's expenses only. `/admin/**` needs an ADMIN token.
 
-| Method | Path                                           | Auth     | Description                          |
-|--------|------------------------------------------------|----------|--------------------------------------|
-| POST   | `/signup`                                      | Public   | Create an account and receive a token |
-| POST   | `/login`                                       | Public   | Log in and receive a token           |
-| GET    | `/`                                            | Token    | Health check                         |
-| GET    | `/expenses/categories`                         | Token    | List all distinct categories         |
-| GET    | `/expenses/categories/{day}`                   | Token    | Expenses on a given date             |
-| GET    | `/expenses/categories/{category}/month?month=` | Token    | Expenses by category and month       |
-| GET    | `/expenses/{id}`                               | Token    | Get a single expense by id           |
-| POST   | `/expenses`                                    | Token    | Create a new expense                 |
-| PUT    | `/expenses/{id}`                               | Token    | Update an existing expense           |
-| DELETE | `/expenses/{id}`                               | Token    | Delete an expense                    |
+| Method | Path                                           | Access | Description                                   |
+|--------|------------------------------------------------|--------|-----------------------------------------------|
+| POST   | `/signup`                                      | Public | Create an account and receive a token         |
+| POST   | `/login`                                       | Public | Log in and receive a token                    |
+| GET    | `/`                                            | USER   | Health check                                  |
+| GET    | `/expenses/categories`                         | USER   | List your distinct categories                 |
+| GET    | `/expenses/categories/{day}`                   | USER   | Your expenses on a given date                 |
+| GET    | `/expenses/categories/{category}/month?month=` | USER   | Your expenses by category and month           |
+| GET    | `/expenses/{id}`                               | USER   | Get one of your expenses by id                |
+| POST   | `/expenses`                                    | USER   | Create a new expense                          |
+| PUT    | `/expenses/{id}`                               | USER   | Update one of your expenses                   |
+| DELETE | `/expenses/{id}`                               | USER   | Delete one of your expenses                   |
+| GET    | `/admin/users`                                 | ADMIN  | List all registered users                     |
 
 ### Using the API
 
@@ -102,18 +104,24 @@ A failed sign-up or login returns status 400 with no token and an error message.
 
 Credentials are supplied via environment variables (`DB_USERNAME`, `DB_PASSWORD`), never committed. See `application.yml` for the expected connection format.
 
+On first start, `DataInitializer` creates an `admin` account with a default password. This is for development only and must be changed before any real deployment.
+
 ## Current Limitations
 
-- Expenses are not linked to users, so every authenticated user sees the same expenses.
-- All users have the same access; there are no roles yet.
+- `GET /admin/users` returns the stored password hashes, because it returns the user entity instead of a DTO.
+- The default admin credentials are hardcoded for development.
 - The JWT signing key is generated at startup, so every token stops working after a restart.
 - Failed sign-up and login both return 400, and a missing token returns 403 instead of 401.
+- No input validation yet.
+- No automated tests yet.
 
 ## Roadmap
 
 What's still ahead:
-- Map each expense to its owner and add role-based access control
-- Load the JWT signing key from configuration instead of generating it at startup
+- Return a DTO from the admin endpoint, without the password hash
+- Load the JWT signing key and the admin password from configuration
 - Return precise status codes for authentication failures (409, 401)
-- A JavaFX front end (login/signup, expense table, add/edit views, stats view)
+- Input validation
+- Tests (JUnit, MockMvc)
 - Deployment (Railway) and a packaged JAR
+- A JavaFX front end (login/signup, expense table, add/edit views, stats view)

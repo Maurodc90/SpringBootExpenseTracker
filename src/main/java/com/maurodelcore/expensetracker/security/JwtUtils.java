@@ -17,7 +17,9 @@ import java.util.Map;
 @Component
 public class JwtUtils {
 
-    /** Secret key used to sign new tokens and to verify the signature of incoming ones. */
+    /**
+     * Secret key used to sign new tokens and to verify the signature of incoming ones.
+     */
     private final SecretKey SECRET_KEY = Jwts.SIG.HS256.key().build();
 
     /**

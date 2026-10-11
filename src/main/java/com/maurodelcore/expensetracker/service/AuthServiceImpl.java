@@ -4,11 +4,11 @@ import com.maurodelcore.expensetracker.dto.AppUserDTO;
 import com.maurodelcore.expensetracker.dto.AuthDTO;
 import com.maurodelcore.expensetracker.dto.AuthResponseDTO;
 import com.maurodelcore.expensetracker.model.AppUser;
+import com.maurodelcore.expensetracker.model.Role;
 import com.maurodelcore.expensetracker.security.JwtUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +52,7 @@ public class AuthServiceImpl implements AuthService {
         appUser.setFullName(appUserDTO.getFullName());
         appUser.setUsername(appUserDTO.getUsername());
         appUser.setPassword(passwordEncoder.encode(appUserDTO.getPassword()));  // store the hash, never the plain password
+        appUser.setRole(Role.USER);
         userService.saveUser(appUser);
 
         // Log the new user in straight away to get a token
@@ -70,7 +71,7 @@ public class AuthServiceImpl implements AuthService {
 
         try {
             // Throws BadCredentialsException if the username or password is wrong
-            Authentication authentication = authenticationManager.authenticate(
+            authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authDTO.getUsername(), authDTO.getPassword()));
             final String token = jwtUtils.generateToken(authDTO.getUsername());
             return new AuthResponseDTO(token, "success");

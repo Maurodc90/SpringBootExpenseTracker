@@ -4,6 +4,8 @@ import com.maurodelcore.expensetracker.model.AppUser;
 import com.maurodelcore.expensetracker.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * Default implementation of {@link UserService}, backed by {@link UserRepository}.
  */
@@ -36,5 +38,13 @@ public class UserServiceImpl implements UserService {
     public AppUser findByUsername(String username) {
         // Return the user with the given username, or null if there is none
         return userRepository.findByUsername(username).orElse(null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<AppUser> findUserById(Long id) {
+        return userRepository.findById(id);
     }
 }

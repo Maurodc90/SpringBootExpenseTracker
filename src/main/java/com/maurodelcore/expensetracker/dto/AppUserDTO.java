@@ -9,13 +9,19 @@ import lombok.Data;
 @Data
 public class AppUserDTO {
 
-    /** The user's display name. */
+    /**
+     * The user's display name.
+     */
     private String fullName;
 
-    /** The unique name used to log in. */
+    /**
+     * The unique name used to log in.
+     */
     private String username;
 
-    /** The plain-text password chosen by the user; never stored or returned. */
+    /**
+     * The plain-text password chosen by the user; never stored or returned.
+     */
     private String password;
 
 }

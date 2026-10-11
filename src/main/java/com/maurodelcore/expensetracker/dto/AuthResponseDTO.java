@@ -10,10 +10,14 @@ import lombok.Data;
 @Data
 public class AuthResponseDTO {
 
-    /** The JWT the client sends in the {@code Authorization} header, or {@code null} on failure. */
+    /**
+     * The JWT the client sends in the {@code Authorization} header, or {@code null} on failure.
+     */
     private String token;
 
-    /** "success" or a short error message for the client. */
+    /**
+     * "success" or a short error message for the client.
+     */
     private String message;
 
     /**
