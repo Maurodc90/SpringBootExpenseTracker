@@ -3,11 +3,11 @@ package com.maurodelcore.expensetracker.service;
 import com.maurodelcore.expensetracker.dto.AppUserDTO;
 import com.maurodelcore.expensetracker.dto.AuthDTO;
 import com.maurodelcore.expensetracker.dto.AuthResponseDTO;
+import com.maurodelcore.expensetracker.exception.UsernameAlreadyExistsException;
 import com.maurodelcore.expensetracker.model.AppUser;
 import com.maurodelcore.expensetracker.model.Role;
 import com.maurodelcore.expensetracker.security.JwtUtils;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -46,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponseDTO registerUser(AppUserDTO appUserDTO) {
         // Stop if the username already exists
         if (userService.findByUsername(appUserDTO.getUsername()) != null) {
-            return new AuthResponseDTO(null, "Error: Username is Already Taken");
+            throw new UsernameAlreadyExistsException();
         }
         AppUser appUser = new AppUser();
         appUser.setFullName(appUserDTO.getFullName());
@@ -68,18 +68,9 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     public AuthResponseDTO loginUser(AuthDTO authDTO) {
-
-        try {
-            // Throws BadCredentialsException if the username or password is wrong
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authDTO.getUsername(), authDTO.getPassword()));
-            final String token = jwtUtils.generateToken(authDTO.getUsername());
-            return new AuthResponseDTO(token, "success");
-
-        } catch (BadCredentialsException e) {
-            return new AuthResponseDTO(null, "Error: Invalid Credentials");
-        }
-
-
+        // Throws BadCredentialsException if the username or password is wrong
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDTO.getUsername(), authDTO.getPassword()));
+        final String token = jwtUtils.generateToken(authDTO.getUsername());
+        return new AuthResponseDTO(token);
     }
 }

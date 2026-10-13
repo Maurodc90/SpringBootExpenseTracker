@@ -51,12 +51,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             token = authHeader.substring(7); // remove the "Bearer " prefix from the token
             try {
                 username = jwtUtils.extractUsername(token);
-
-            } catch (Exception e) {
-                System.out.println("Error extracting username from JWT token");
+            } catch (Exception ignored) {
+                // This exception is ignored because a bad authentication will be handled by spring
             }
-        } else {
-            System.out.println("JWT token does not start with the Bearer prefix");
         }
 
         // Only authenticate if the token gave a username and nobody is authenticated for this request yet
