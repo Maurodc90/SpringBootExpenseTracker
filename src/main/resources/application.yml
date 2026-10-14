@@ -1,9 +1,9 @@
 server:
-  port: 8080 # port the embedded server listens on
+  port: ${PORT:8080} # port the embedded server listens on
 
 spring:
   datasource:
-    url: jdbc:postgresql://ep-steep-grass-b1kkc352-pooler.c-5.eu-central-1.aws.neon.tech/neondb?sslmode=require&channelBinding=require
+    url: ${DB_URL} # set as an environment variable, not hardcoded
     driverClassName: org.postgresql.Driver
     username: ${DB_USERNAME} # set as an environment variable, not hardcoded
     password: ${DB_PASSWORD} # set as an environment variable, not hardcoded

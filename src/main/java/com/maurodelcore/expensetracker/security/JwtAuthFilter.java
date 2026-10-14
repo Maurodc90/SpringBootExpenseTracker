@@ -1,6 +1,6 @@
 package com.maurodelcore.expensetracker.security;
 
-import com.maurodelcore.expensetracker.service.UserDetailServiceImpl;
+import com.maurodelcore.expensetracker.service.impl.UserDetailServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +19,9 @@ import java.io.IOException;
  * Runs once per request before Spring's own login filter. It reads the JWT from
  * the {@code Authorization} header and, if the token is valid, records who the
  * user is in the {@link SecurityContextHolder} so the access rules can be applied.
- * It identifies the user but does not decide what the user may access.
+ * It identifies the user but does not decide what the user may access. A request
+ * with a missing, malformed or invalid token simply stays unauthenticated, and the
+ * security configuration then answers it with 401 Unauthorized.
  */
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
@@ -52,7 +54,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             try {
                 username = jwtUtils.extractUsername(token);
             } catch (Exception ignored) {
-                // This exception is ignored because a bad authentication will be handled by spring
+                // An unreadable, tampered or expired token gives no username, so nobody is
+                // authenticated and the security configuration answers with 401
             }
         }
 
@@ -69,6 +72,5 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
-
     }
 }

@@ -2,17 +2,21 @@ package com.maurodelcore.expensetracker.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Creates and reads the JWTs used to authenticate users. Tokens are signed with a
- * secret key that stays on the server. The key is generated when the application
- * starts, so every token becomes invalid after a restart.
+ * secret key that stays on the server. The key is built from the {@code jwt.secret}
+ * configuration value (environment variable {@code JWT_SECRET}), so tokens stay valid
+ * across restarts for as long as the secret does not change.
  */
 @Component
 public class JwtUtils {
@@ -20,7 +24,19 @@ public class JwtUtils {
     /**
      * Secret key used to sign new tokens and to verify the signature of incoming ones.
      */
-    private final SecretKey SECRET_KEY = Jwts.SIG.HS256.key().build();
+    private final SecretKey SECRET_KEY;
+
+    /**
+     * Creates the utility and builds the signing key from the configured secret.
+     *
+     * @param secret the secret text, read from the {@code jwt.secret} property
+     *               (environment variable {@code JWT_SECRET}); at least 32 characters.
+     *               Falls back to a local-development default if it is not set, so the
+     *               real value must be set on any public deployment
+     */
+    public JwtUtils(@Value("${jwt.secret:this-is-only-a-local-dev-key-12345}") String secret) {
+        this.SECRET_KEY = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    }
 
     /**
      * Generates a signed token for a user, valid for 10 hours.
@@ -44,6 +60,7 @@ public class JwtUtils {
      *
      * @param token the JWT sent by the client
      * @return the username stored in the token's subject
+     * @throws io.jsonwebtoken.JwtException if the token is malformed, expired or has a wrong signature
      */
     public String extractUsername(String token) {
         return extractAllClaims(token).getSubject();
@@ -85,5 +102,4 @@ public class JwtUtils {
         final String extractedUsername = extractUsername(token);
         return (extractedUsername.equals(username) && !isTokenExpired(token));
     }
-
 }

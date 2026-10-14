@@ -1,4 +1,4 @@
-package com.maurodelcore.expensetracker.service;
+package com.maurodelcore.expensetracker.service.impl;
 
 import com.maurodelcore.expensetracker.dto.AppUserDTO;
 import com.maurodelcore.expensetracker.dto.AuthDTO;
@@ -7,6 +7,8 @@ import com.maurodelcore.expensetracker.exception.UsernameAlreadyExistsException;
 import com.maurodelcore.expensetracker.model.AppUser;
 import com.maurodelcore.expensetracker.model.Role;
 import com.maurodelcore.expensetracker.security.JwtUtils;
+import com.maurodelcore.expensetracker.service.AuthService;
+import com.maurodelcore.expensetracker.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;

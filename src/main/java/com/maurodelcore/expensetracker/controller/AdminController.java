@@ -1,6 +1,6 @@
 package com.maurodelcore.expensetracker.controller;
 
-import com.maurodelcore.expensetracker.model.AppUser;
+import com.maurodelcore.expensetracker.dto.UserListDTO;
 import com.maurodelcore.expensetracker.service.AdminService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,14 +29,14 @@ public class AdminController {
     }
 
     /**
-     * Lists all registered users.
+     * Lists all registered users as safe summaries (id, full name, username and role).
+     * Password hashes and expenses are never included.
      *
-     * @return 200 OK with the list of all users
+     * @return 200 OK with the list of all users, empty if there are none
      */
     @GetMapping("/users")
-    public ResponseEntity<List<AppUser>> getAllUsers() {
-        List<AppUser> users = adminService.getAllUsers();
+    public ResponseEntity<List<UserListDTO>> getAllUsers() {
+        List<UserListDTO> users = adminService.getAllUsers();
         return ResponseEntity.ok(users);
     }
-
 }

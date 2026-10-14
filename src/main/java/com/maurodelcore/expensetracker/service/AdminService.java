@@ -1,6 +1,6 @@
 package com.maurodelcore.expensetracker.service;
 
-import com.maurodelcore.expensetracker.model.AppUser;
+import com.maurodelcore.expensetracker.dto.UserListDTO;
 
 import java.util.List;
 
@@ -10,9 +10,10 @@ import java.util.List;
 public interface AdminService {
 
     /**
-     * Returns all registered users.
+     * Returns all registered users as safe summaries (id, full name, username and role).
+     * Password hashes and expenses are never included.
      *
      * @return the list of all users, empty if none are registered
      */
-    List<AppUser> getAllUsers();
+    List<UserListDTO> getAllUsers();
 }

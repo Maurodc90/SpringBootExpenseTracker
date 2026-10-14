@@ -1,8 +1,10 @@
-package com.maurodelcore.expensetracker.service;
+package com.maurodelcore.expensetracker.service.impl;
 
 import com.maurodelcore.expensetracker.model.AppUser;
 import com.maurodelcore.expensetracker.model.Expense;
 import com.maurodelcore.expensetracker.repository.ExpenseRepository;
+import com.maurodelcore.expensetracker.service.ExpenseService;
+import com.maurodelcore.expensetracker.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.Optional;
  * never read, change or delete another user's expenses.
  */
 @Service
-public class ExpenseServiceImplementation implements ExpenseService {
+public class ExpenseServiceImpl implements ExpenseService {
 
     private final ExpenseRepository expenseRepository;
     private final UserService userService;
@@ -26,7 +28,7 @@ public class ExpenseServiceImplementation implements ExpenseService {
      * @param expenseRepository the repository used to read and write expenses
      * @param userService       the service used to load the owner of a new expense
      */
-    public ExpenseServiceImplementation(ExpenseRepository expenseRepository, UserService userService) {
+    public ExpenseServiceImpl(ExpenseRepository expenseRepository, UserService userService) {
         this.expenseRepository = expenseRepository;
         this.userService = userService;
     }

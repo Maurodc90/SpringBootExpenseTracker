@@ -1,7 +1,8 @@
-package com.maurodelcore.expensetracker.service;
+package com.maurodelcore.expensetracker.service.impl;
 
 import com.maurodelcore.expensetracker.model.AppUser;
 import com.maurodelcore.expensetracker.repository.UserRepository;
+import com.maurodelcore.expensetracker.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

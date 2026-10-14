@@ -1,4 +1,4 @@
-package com.maurodelcore.expensetracker.service;
+package com.maurodelcore.expensetracker.service.impl;
 
 import com.maurodelcore.expensetracker.model.AppUser;
 import com.maurodelcore.expensetracker.repository.UserRepository;

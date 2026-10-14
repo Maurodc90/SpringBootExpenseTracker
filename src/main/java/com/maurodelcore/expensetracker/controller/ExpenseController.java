@@ -20,10 +20,8 @@ import java.util.Optional;
 @RestController
 public class ExpenseController {
 
-
-    final private ExpenseService expenseService;
-    final private UserService userService;
-
+    private final ExpenseService expenseService;
+    private final UserService userService;
 
     /**
      * Creates the controller with the services it delegates to.
@@ -111,16 +109,19 @@ public class ExpenseController {
     }
 
     /**
-     * Creates a new expense owned by the logged-in user.
+     * Creates a new expense owned by the logged-in user. Any id in the request body is
+     * ignored, so a client can never overwrite an existing expense; the database assigns the id.
      *
      * @param expense        the expense to create, supplied in the request body
      * @param authentication the authenticated user, supplied by Spring Security
-     * @return 201 Created with the saved expense
+     * @return 201 Created with the saved expense, including its new id
      */
     @PostMapping("/expenses")
     public ResponseEntity<Expense> addExpense(@RequestBody Expense expense, Authentication authentication) {
         String username = authentication.getName();
         AppUser user = userService.findByUsername(username);
+        // Never trust an id from the client: a null id makes save() create a new row
+        expense.setId(null);
         return ResponseEntity.status(HttpStatus.CREATED).body(expenseService.addExpense(expense, user.getId()));
     }
 
@@ -163,5 +164,4 @@ public class ExpenseController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
 }
