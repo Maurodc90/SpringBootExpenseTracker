@@ -48,8 +48,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testCompileOnly 'org.projectlombok:lombok'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	// Add if integration tests need a real Postgres connection:
-	// testImplementation 'org.postgresql:postgresql'
+	// Real PostgreSQL in a throwaway Docker container for the integration tests
+	testImplementation 'org.testcontainers:testcontainers-postgresql'
 }
 
 // --- Test configuration ---
