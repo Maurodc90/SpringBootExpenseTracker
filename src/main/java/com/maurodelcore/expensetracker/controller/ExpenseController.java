@@ -45,6 +45,19 @@ public class ExpenseController {
     }
 
     /**
+     * Returns all expenses owned by the authenticated user.
+     *
+     * @param authentication the authenticated user resolved from the JWT
+     * @return 200 OK with the user's expenses, or an empty list if there are none
+     */
+    @GetMapping("/expenses")
+    public ResponseEntity<List<Expense>> getAllExpenses(Authentication authentication) {
+        AppUser user = userService.findByUsername(authentication.getName());
+        List<Expense> expenses = expenseService.getAllUserExpenses(user.getId());
+        return ResponseEntity.ok(expenses);
+    }
+
+    /**
      * Returns the distinct set of expense categories used by the logged-in user.
      *
      * @param authentication the authenticated user, supplied by Spring Security
