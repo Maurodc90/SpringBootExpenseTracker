@@ -8,7 +8,7 @@ This is an API with no front end yet. Opening the URL in a browser returns 401, 
 
 ## Status: In Progress
 
-Deployed on Railway with its own Neon database. Expenses are stored in PostgreSQL (Neon). Users sign up, log in and manage their own expenses with a JWT. Every expense belongs to the user who created it, and there are two roles: USER and ADMIN.
+Deployed on Railway with its own Neon database. Expenses are stored in PostgreSQL (Neon). Users sign up, log in and manage their own expenses with a JWT. Every expense belongs to the user who created it, and there are two roles: USER and ADMIN. Integration tests run against a real PostgreSQL in Docker.
 
 ## Tech Stack
 
@@ -19,6 +19,7 @@ Deployed on Railway with its own Neon database. Expenses are stored in PostgreSQ
 - PostgreSQL (Neon, cloud-hosted), Hibernate / JPA
 - Lombok, Jackson
 - Gradle
+- JUnit 5, MockMvc and Testcontainers (PostgreSQL) for integration tests
 - Railway (hosting)
 
 ## Architecture
@@ -104,6 +105,22 @@ Failed requests never return a token:
 - A request to a protected endpoint with a missing or invalid token returns 401 Unauthorized.
 - A request with a valid token but the wrong role (for example an admin calling an expense endpoint) returns 403 Forbidden.
 
+## Testing
+
+The integration tests start the whole application and send real HTTP requests through MockMvc, including the security filter chain. They run against a real PostgreSQL in a throwaway Docker container (Testcontainers), so they never touch the Neon databases and need no database settings.
+
+```bash
+./gradlew test
+```
+
+Docker must be running. The first run downloads the PostgreSQL image.
+
+What the tests cover:
+
+- **Auth:** sign-up returns 201 with a token, a duplicate username returns 409, login returns 200, a wrong password returns 401.
+- **Expenses:** a request without a token returns 401, adding an expense returns 201 with a generated id, a user sees their own expenses, another user's expense returns 404, and an id sent by the client on create is ignored.
+- **Roles:** an admin token on an expense endpoint returns 403, an admin can list users without any password in the response, and a normal user on `/admin/users` returns 403.
+
 ## Setup
 
 Configuration is supplied through environment variables and never committed. See `application.yml` for the expected format.
@@ -126,12 +143,12 @@ The live demo runs on Railway, built from this repository, with its own Neon Pos
 ## Current Limitations
 
 - No input validation yet.
-- No automated tests yet. The endpoints have been checked manually in Postman against the live deployment.
+- Integration tests cover auth, expenses and admin endpoints, but there are no unit tests yet.
 - The admin account is only created if none exists, so changing `ADMIN_PASSWORD` later does not change an existing admin.
 
 ## Roadmap
 
-- Tests (JUnit, MockMvc)
 - Input validation
+- Unit tests for the service layer (Mockito)
 - Dockerfile and a GitHub Actions pipeline (build and test on push)
 - A Thymeleaf front end (login/signup, expense table, add/edit views, stats view)
