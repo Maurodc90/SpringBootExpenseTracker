@@ -7,11 +7,13 @@ import org.springframework.http.MediaType;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests the expense endpoints: authentication, ownership, and the ignored client id.
+ * Tests the expense endpoints: authentication, ownership, the ignored client id
+ * and invalid request bodies.
  */
 class ExpenseIntegrationTest extends AbstractIntegrationTest {
 
@@ -93,5 +95,54 @@ class ExpenseIntegrationTest extends AbstractIntegrationTest {
         mockMvc.perform(get("/expenses/categories")
                         .header("Authorization", bearer(adminToken)))
                 .andExpect(status().isForbidden());
+    }
+
+    /** Adding an expense with a zero amount returns 400 naming the amount. */
+    @Test
+    void addExpenseWithZeroAmountReturns400() throws Exception {
+        String token = signUp(uniqueUsername(), USER_PASSWORD);
+
+        mockMvc.perform(post("/expenses")
+                        .header("Authorization", bearer(token))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(expenseJson(0)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.amount").value("amount must be greater than zero"));
+    }
+
+    /** Adding an expense without a category and a date returns 400 naming both fields. */
+    @Test
+    void addExpenseWithoutCategoryAndDateReturns400() throws Exception {
+        String token = signUp(uniqueUsername(), USER_PASSWORD);
+        String bodyWithoutCategoryAndDate = """
+                {"account": "Cash", "amount": 10.0, "expenseType": 0, "note": "Groceries"}
+                """;
+
+        mockMvc.perform(post("/expenses")
+                        .header("Authorization", bearer(token))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(bodyWithoutCategoryAndDate))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.category").value("category is required"))
+                .andExpect(jsonPath("$.date").value("date is required"));
+    }
+
+    /** Updating an expense with a negative amount returns 400 and leaves the expense unchanged. */
+    @Test
+    void updateExpenseWithNegativeAmountReturns400() throws Exception {
+        String token = signUp(uniqueUsername(), USER_PASSWORD);
+        long id = createExpense(token, 42.5);
+
+        mockMvc.perform(put("/expenses/" + id)
+                        .header("Authorization", bearer(token))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(expenseJson(-5)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.amount").value("amount must be greater than zero"));
+
+        mockMvc.perform(get("/expenses/" + id)
+                        .header("Authorization", bearer(token)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.amount").value(42.5));
     }
 }

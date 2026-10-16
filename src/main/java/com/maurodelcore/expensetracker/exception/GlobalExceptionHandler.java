@@ -3,8 +3,13 @@ package com.maurodelcore.expensetracker.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Central place that turns exceptions thrown anywhere in the controllers or services
@@ -38,5 +43,24 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<String> handleBadCredentialsException(BadCredentialsException e) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+    }
+
+    /**
+     * Handles a request body that fails a {@code @Valid} check, such as a blank username
+     * or an amount that is not above zero. The client sent bad data, so the status is
+     * 400 Bad Request. The body maps each invalid field to one message, for example
+     * {@code {"amount": "amount must be greater than zero"}}.
+     *
+     * @param e the exception thrown by Spring when one or more fields of the body are invalid
+     * @return a 400 Bad Request response whose body maps each invalid field name to its message
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        Map<String, String> messagesByField = new LinkedHashMap<>();
+        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
+            // Keep the first message if a field breaks more than one rule
+            messagesByField.putIfAbsent(fieldError.getField(), fieldError.getDefaultMessage());
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(messagesByField);
     }
 }

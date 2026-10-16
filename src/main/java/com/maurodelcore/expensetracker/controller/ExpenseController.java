@@ -4,6 +4,7 @@ import com.maurodelcore.expensetracker.model.AppUser;
 import com.maurodelcore.expensetracker.model.Expense;
 import com.maurodelcore.expensetracker.service.ExpenseService;
 import com.maurodelcore.expensetracker.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -127,10 +128,10 @@ public class ExpenseController {
      *
      * @param expense        the expense to create, supplied in the request body
      * @param authentication the authenticated user, supplied by Spring Security
-     * @return 201 Created with the saved expense, including its new id
+     * @return 201 Created with the saved expense, including its new id, or 400 Bad Request if a field is invalid
      */
     @PostMapping("/expenses")
-    public ResponseEntity<Expense> addExpense(@RequestBody Expense expense, Authentication authentication) {
+    public ResponseEntity<Expense> addExpense(@Valid @RequestBody Expense expense, Authentication authentication) {
         String username = authentication.getName();
         AppUser user = userService.findByUsername(username);
         // Never trust an id from the client: a null id makes save() create a new row
@@ -144,10 +145,11 @@ public class ExpenseController {
      * @param id             the id of the expense to update, taken from the path
      * @param expense        the updated expense data, supplied in the request body
      * @param authentication the authenticated user, supplied by Spring Security
-     * @return 200 OK with the expense as sent in the request if it existed, otherwise 404 Not Found
+     * @return 200 OK with the expense as sent in the request if it existed, 404 Not Found if it did not,
+     *         or 400 Bad Request if a field is invalid
      */
     @PutMapping("/expenses/{id}")
-    public ResponseEntity<Expense> updateExpense(@PathVariable Long id, @RequestBody Expense expense, Authentication authentication) {
+    public ResponseEntity<Expense> updateExpense(@PathVariable Long id, @Valid @RequestBody Expense expense, Authentication authentication) {
         String username = authentication.getName();
         AppUser user = userService.findByUsername(username);
         expense.setId(id);

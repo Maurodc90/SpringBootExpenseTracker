@@ -142,13 +142,11 @@ The live demo runs on Railway, built from this repository, with its own Neon Pos
 
 ## Current Limitations
 
-- No input validation yet.
 - Integration tests cover auth, expenses and admin endpoints, but there are no unit tests yet.
 - The admin account is only created if none exists, so changing `ADMIN_PASSWORD` later does not change an existing admin.
 
 ## Roadmap
 
-- Input validation
 - Unit tests for the service layer (Mockito)
 - Dockerfile and a GitHub Actions pipeline (build and test on push)
 - A Thymeleaf front end (login/signup, expense table, add/edit views, stats view)

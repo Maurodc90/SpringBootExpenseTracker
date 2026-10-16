@@ -4,6 +4,7 @@ import com.maurodelcore.expensetracker.dto.AppUserDTO;
 import com.maurodelcore.expensetracker.dto.AuthDTO;
 import com.maurodelcore.expensetracker.dto.AuthResponseDTO;
 import com.maurodelcore.expensetracker.service.AuthService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,10 +37,10 @@ public class AuthController {
      * {@code UsernameAlreadyExistsException} and the client receives 409 Conflict instead.
      *
      * @param appUserDTO the full name, username and password sent in the request body
-     * @return 201 Created with a response holding the token
+     * @return 201 Created with a response holding the token, or 400 Bad Request if a field is blank
      */
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponseDTO> signup(@RequestBody AppUserDTO appUserDTO) {
+    public ResponseEntity<AuthResponseDTO> signup(@Valid @RequestBody AppUserDTO appUserDTO) {
         AuthResponseDTO response = authService.registerUser(appUserDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -50,10 +51,10 @@ public class AuthController {
      * and the client receives 401 Unauthorized instead.
      *
      * @param authDTO the username and password sent in the request body
-     * @return 200 OK with a response holding the token
+     * @return 200 OK with a response holding the token, or 400 Bad Request if a field is blank
      */
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDTO> login(@RequestBody AuthDTO authDTO) {
+    public ResponseEntity<AuthResponseDTO> login(@Valid @RequestBody AuthDTO authDTO) {
         AuthResponseDTO response = authService.loginUser(authDTO);
         return ResponseEntity.ok(response);
     }

@@ -2,6 +2,9 @@ package com.maurodelcore.expensetracker.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 /**
@@ -27,16 +30,20 @@ public class Expense {
     /**
      * The date of the expense, stored as text.
      */
+    @NotBlank(message = "date is required")
     private String date;
 
     /**
      * The amount of money spent.
      */
+    @NotNull(message = "amount is required")
+    @Positive(message = "amount must be greater than zero")
     private Double amount;
 
     /**
      * The category of the expense (for example "Food").
      */
+    @NotBlank(message = "category is required")
     private String category;
 
     /**

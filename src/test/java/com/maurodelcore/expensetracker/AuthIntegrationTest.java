@@ -8,7 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests sign-up and login: the happy paths, a duplicate username and a wrong password.
+ * Tests sign-up and login: the happy paths, a duplicate username, a wrong password
+ * and invalid request bodies.
  */
 class AuthIntegrationTest extends AbstractIntegrationTest {
 
@@ -57,5 +58,42 @@ class AuthIntegrationTest extends AbstractIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(loginJson(username, "wrong-password")))
                 .andExpect(status().isUnauthorized());
+    }
+
+    /** Signing up with a blank username and password returns 400 naming both fields. */
+    @Test
+    void signupWithBlankUsernameAndPasswordReturns400() throws Exception {
+        mockMvc.perform(post("/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(signupJson("", " ")))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.username").value("username must not be blank"))
+                .andExpect(jsonPath("$.password").value("password must not be blank"))
+                .andExpect(jsonPath("$.fullName").doesNotExist());
+    }
+
+    /** Signing up without a full name returns 400 naming that field. */
+    @Test
+    void signupWithoutFullNameReturns400() throws Exception {
+        String bodyWithoutFullName = """
+                {"username": "%s", "password": "%s"}
+                """.formatted(uniqueUsername(), USER_PASSWORD);
+
+        mockMvc.perform(post("/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(bodyWithoutFullName))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.fullName").value("fullName must not be blank"));
+    }
+
+    /** Logging in with a blank username returns 400 naming only that field. */
+    @Test
+    void loginWithBlankUsernameReturns400() throws Exception {
+        mockMvc.perform(post("/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(loginJson("", USER_PASSWORD)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.username").value("username must not be blank"))
+                .andExpect(jsonPath("$.password").doesNotExist());
     }
 }
